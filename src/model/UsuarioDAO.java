@@ -9,9 +9,9 @@ public class UsuarioDAO {
 	private int resultado = 0;
 	private ResultSet consulta;
 	
-	public void insertSQL() {
-		sql = ""
-			
+	public void insertSQL(String login, String senha, String nome) {
+		sql = "INSERT INTO usuario (id, login, senha, nome) " +
+			  "VALUES (default, '', '', '', '')"
 			;
 		resultado = conexao.executarComandosSQL(sql);
 	}

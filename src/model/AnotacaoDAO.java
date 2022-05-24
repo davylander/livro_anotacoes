@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.LocalDate;
 
 public class AnotacaoDAO {
@@ -18,28 +18,38 @@ public class AnotacaoDAO {
 	}
 	
 	public void updateSQL(int id, String titulo, String texto) {
-		sql = ""
-			
+		sql = "UPDATE anotacao " +
+			  "SET titulo = '"+titulo+"', texto = '"+texto+"' "	 +
+			  "WHERE id = " + id
 			;
 		resultado = conexao.executarComandosSQL(sql);
 	}
 	
 	public void deleteSQL(int id) {
-		sql = ""
+		sql = "DELETE FROM anotacao " +
+			  "WHERE id = " + id
 			
 			;
 		resultado = conexao.executarComandosSQL(sql);
 	}
 	
 	public void selectSQL() {
-		sql = ""
+		sql = "SELECT * FROM anotacao"
 				
 			;
 		consulta = conexao.executarBucasSQL(sql);
 		
 		try {
 			while(consulta.next()) {
+				int id = consulta.getInt("id");
+				Date data = consulta.getDate("data");
+				String titulo = consulta.getString("titulo");
+				String texto = consulta.getString("texto");
+				int usuarioId = consulta.getInt("usuario_id");
 				
+				System.out.println("____________________ID:"+id+", "+data+"_____________________");
+				System.out.println(titulo+" : \n"+texto);
+				System.out.println("______________________________________________________________");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
