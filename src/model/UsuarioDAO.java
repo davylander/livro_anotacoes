@@ -9,36 +9,40 @@ public class UsuarioDAO {
 	private int resultado = 0;
 	private ResultSet consulta;
 	
-	public void insertSQL(String login, String senha, String nome) {
+	public void inserirSQL(String login, String senha, String nome) {
 		sql = "INSERT INTO usuario (id, login, senha, nome) " +
-			  "VALUES (default, '', '', '', '')"
+			  "VALUES (default, '"+login+"', '"+senha+"', '"+nome+"')"
 			;
 		resultado = conexao.executarComandosSQL(sql);
 	}
 	
-	public void updateSQL() {
-		sql = ""
-				
+	public void atualizarSQL(int id, String login, String senha, String nome) {
+		sql = "UPDATE usuario " +
+			  "SET login = '"+login+"', senha = '"+senha+"', nome = '"+nome+"' " +
+			  "WHERE id = " + id
 			;
 		resultado = conexao.executarComandosSQL(sql);
 	}
 	
-	public void deleteSQL() {
-		sql = ""
-				
+	public void deletarSQL(int id) {
+		sql = "DELETE FROM usuario" +
+			  "WHERE id = " + id	
 			;
 		resultado = conexao.executarComandosSQL(sql);
 	}
 	
-	public void selectSQL() {
-		sql = ""
+	public void selecionarSQL() {
+		sql = "SELECT * FROM usuario"
 				
 			;
 		consulta = conexao.executarBucasSQL(sql);
 		
 		try {
 			while(consulta.next()) {
-				
+				int id = consulta.getInt("id");
+				String login = consulta.getString("login"); 
+				String senha = consulta.getString("senha");
+				String nome = consulta.getString("nome");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
