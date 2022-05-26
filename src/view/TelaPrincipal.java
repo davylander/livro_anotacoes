@@ -4,12 +4,15 @@ import java.awt.*;
 //import java.awt.event.*;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaPrincipal {
 
 	ImageIcon iconeJanela = new ImageIcon("material/imagens/diario.png");
 	ImageIcon iconeMarcador = new ImageIcon("material/imagens/marcador.png");
 	ImageIcon iconePagina = new ImageIcon("material/imagens/linhas.jpg");
+	ImageIcon iconeSalvar = new ImageIcon("material/imagens/salvar.png");
 	
 	private JFrame frame;
 	private JTable table;
@@ -60,19 +63,37 @@ public class TelaPrincipal {
 		frame.getContentPane().add(panelVisualizar);
 		panelVisualizar.setLayout(null);
 		
-		JLabel labelPaginaEsquerda = new JLabel("");
+		JLabel labelPaginaEsquerda = new JLabel("aaaaaaaaaaaaaaaaaa");
 		labelPaginaEsquerda.setBounds(10, 11, 357, 36);
 		labelPaginaEsquerda.setIcon(iconePagina);
 		panelVisualizar.add(labelPaginaEsquerda);
 		
 		table = new JTable();
-		table.setBounds(10, 325, 357, -304);
+		table.setBounds(10, 328, 357, -178);
 		panelVisualizar.add(table);
 		
-		JLabel labelPaginaEsquerda_1 = new JLabel("");
-		labelPaginaEsquerda_1.setBounds(10, 94, 357, 36);
+		JLabel labelPaginaEsquerda_1 = new JLabel("aaaaaaaaaaaaaaaaa");
+		labelPaginaEsquerda_1.setBounds(10, 99, 357, 36);
 		labelPaginaEsquerda_1.setIcon(iconePagina);
 		panelVisualizar.add(labelPaginaEsquerda_1);
+		
+		JButton editarBotao = new JButton("edit");
+		editarBotao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//
+			}
+		});
+		editarBotao.setBounds(65, 47, 57, 51);
+		panelVisualizar.add(editarBotao);
+		
+		JButton deletarBotao = new JButton("deleta");
+		deletarBotao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//
+			}
+		});
+		deletarBotao.setBounds(254, 47, 57, 51);
+		panelVisualizar.add(deletarBotao);
 		
 		
 		//--------------------Lado Direito---------------------------
@@ -112,6 +133,17 @@ public class TelaPrincipal {
 		JScrollBar scrollBar = new JScrollBar();
 		scrollBar.setBounds(299, 142, 17, 186);
 		panelInserir.add(scrollBar);
+		
+		JButton enviarBotao = new JButton("");
+		enviarBotao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//
+			}
+		});
+		enviarBotao.setBounds(10, 277, 57, 51);
+		enviarBotao.setBackground(Color.decode("#F0F0F0"));
+		enviarBotao.setIcon(iconeSalvar);
+		panelInserir.add(enviarBotao);
 		
 		
 		// ___________________________________________________________________________________________________________________________________________

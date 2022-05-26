@@ -8,7 +8,6 @@ import model.Usuario;
 public class GerenciarUsuarios {
 	
 	UsuarioDAO usuarioDAO = new UsuarioDAO();
-	Diario diario = new Diario();
 	Usuario usuario;
 	
 	public ArrayList<Usuario> listarUsuarios() {
@@ -46,7 +45,6 @@ public class GerenciarUsuarios {
 		for(int i = 0; i < listarUsuarios().size(); i ++) {
 			if(listarUsuarios().get(i).getLogin().equals(login) && listarUsuarios().get(i).getSenha().equals(senha)) {
 				retorno = true;
-				diario.tokenAcesso(listarUsuarios().get(i).getId());
 			}
 		}
 		return retorno;
