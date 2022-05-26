@@ -22,6 +22,7 @@ public class TelaLogin {
 	ImageIcon iconeCadeado = new ImageIcon("material/imagens/cadeado.png");
 	ImageIcon iconeChave = new ImageIcon("material/imagens/chave.png");
 	ImageIcon iconeMarcador = new ImageIcon("material/imagens/marcador.png");
+	ImageIcon iconeCadastrar = new ImageIcon("material/imagens/cadastrar.png");
 	
 	private JFrame frame;
 	private JTextField txtLogin;
@@ -125,8 +126,8 @@ public class TelaLogin {
 		lblNewLabel.setBorder(bordaLogin);
 		panel_7.add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton(""); // botao chave login
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton entrarBotao = new JButton(""); // botao chave login
+		entrarBotao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(checarLogin(txtLogin.getText(),new String(((JPasswordField) txtSenha).getPassword()))==true) {
 					JOptionPane.showMessageDialog(null, "Bem vindo ao diário!");
@@ -140,11 +141,11 @@ public class TelaLogin {
 				
 			}
 		});
-		btnNewButton.setBounds(398, 121, 67, 60);
-		btnNewButton.setIcon(iconeChave);
-		btnNewButton.setBackground(Color.decode("#AD4F3D"));
-		btnNewButton.setBorder(bordaLogin);
-		panel_6.add(btnNewButton);
+		entrarBotao.setBounds(398, 121, 67, 60);
+		entrarBotao.setIcon(iconeChave);
+		entrarBotao.setBackground(Color.decode("#AD4F3D"));
+		entrarBotao.setBorder(bordaLogin);
+		panel_6.add(entrarBotao);
 		
 		JLabel lblNewLabel_1 = new JLabel(""); // marcador azul
 		lblNewLabel_1.setBounds(10, 0, 76, 67);
@@ -179,7 +180,27 @@ public class TelaLogin {
 		lblNewLabel_4.setForeground(Color.white);
 		panel_6.add(lblNewLabel_4);
 		
+		JButton cadastrarBotao = new JButton("");
+		cadastrarBotao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastro cadastro = new TelaCadastro();
+				cadastro.show();
+				frame.dispose();
+			}
+		});
+		cadastrarBotao.setBounds(247, 219, 67, 60);
+		cadastrarBotao.setIcon(iconeCadastrar);
+		cadastrarBotao.setBackground(Color.decode("#AD4F3D"));
+		cadastrarBotao.setBorder(bordaLogin);
+		panel_6.add(cadastrarBotao);
+		
 		// ___________________________________________________________________________________________________________________________________________
+	}
+	
+	//-----------------------
+	@SuppressWarnings("deprecation")
+	public void show() {
+		frame.show(); // abre a pagina
 	}
 	
 	public boolean checarLogin(String login, String senha) {

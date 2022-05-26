@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class UsuarioDAO {
 
@@ -25,7 +26,7 @@ public class UsuarioDAO {
 	}
 	
 	public void deletarSQL(int id) {
-		sql = "DELETE FROM usuario" +
+		sql = "DELETE FROM usuario " +
 			  "WHERE id = " + id	
 			;
 		resultado = conexao.executarComandosSQL(sql);
@@ -47,6 +48,30 @@ public class UsuarioDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList arraySelecionarSQL() {
+		sql = "SELECT * FROM usuario"
+				
+			;
+		consulta = conexao.executarBucasSQL(sql);
+		ArrayList<String> select = new ArrayList<>(); 
+		
+		try {
+			while(consulta.next()) {
+				int id = consulta.getInt("id");
+				String idString = Integer.toString(id);
+				String login = consulta.getString("login"); 
+				String senha = consulta.getString("senha");
+				String nome = consulta.getString("nome");
+				
+				select.add(idString+";"+login+";"+senha+";"+nome);
+			}
+			return(select);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;	
 	}
 	
 }
