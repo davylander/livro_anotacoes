@@ -1,5 +1,8 @@
 package view;
 
+import controller.GerenciarUsuarios;
+import controller.Diario;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -129,10 +132,15 @@ public class TelaLogin {
 		JButton entrarBotao = new JButton(""); // botao chave login
 		entrarBotao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(checarLogin(txtLogin.getText(),new String(((JPasswordField) txtSenha).getPassword()))==true) {
+				GerenciarUsuarios gerenciarUsuarios = new GerenciarUsuarios();
+				Diario diario = new Diario();
+				String login = txtLogin.getText();
+				String senha = new String(((JPasswordField) txtSenha).getPassword());
+				TelaPrincipal principal = new TelaPrincipal();
+				if(gerenciarUsuarios.acessar(login, senha) == true) {
+					int token = gerenciarUsuarios.tokenAcesso(login, senha);
+					diario.tokenAcesso(token);
 					JOptionPane.showMessageDialog(null, "Bem vindo ao diário!");
-					System.out.println(txtLogin.getText()+" , "+txtSenha.getText());
-					TelaPrincipal principal = new TelaPrincipal();
 					principal.show();
 					frame.dispose();
 				}else {
@@ -203,7 +211,4 @@ public class TelaLogin {
 		frame.show(); // abre a pagina
 	}
 	
-	public boolean checarLogin(String login, String senha) {
-		return login.equals("Davylander") && senha.equals("Clavi2908");
-	}
 }

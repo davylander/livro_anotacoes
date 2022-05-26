@@ -44,11 +44,19 @@ public class GerenciarUsuarios {
 	public boolean acessar(String login, String senha) {
 		boolean retorno = false;
 		for(int i = 0; i < listarUsuarios().size(); i ++) {
-			//listarUsuarios().get(i).getLogin().compareTo(login) == 0 && listarUsuarios().get(i).getSenha().compareTo(senha) == 0
-			//listarUsuarios().get(i).getLogin().equals(login) && listarUsuarios().get(i).getSenha().equals(senha)
 			if(listarUsuarios().get(i).getLogin().equals(login) && listarUsuarios().get(i).getSenha().equals(senha)) {
 				retorno = true;
 				diario.tokenAcesso(listarUsuarios().get(i).getId());
+			}
+		}
+		return retorno;
+	}
+	
+	public int tokenAcesso(String login, String senha) {
+		int retorno = 0;
+		for(int i = 0; i < listarUsuarios().size(); i ++) {
+			if(listarUsuarios().get(i).getLogin().equals(login) && listarUsuarios().get(i).getSenha().equals(senha)) {
+				retorno = listarUsuarios().get(i).getId();
 			}
 		}
 		return retorno;
