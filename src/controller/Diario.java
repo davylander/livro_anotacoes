@@ -1,17 +1,16 @@
 package controller;
 
-public class Diario {
-	
-	private int idToken;
+
+public class Diario{
+		
+	private int token;
 	
 	public void tokenAcesso(int id) {
-		this.idToken = id;
+		this.token = id;
 	}
 	
 	public int retornaToken() {
-		return idToken;
+		return token;
 	}
-	
-	
 	
 }

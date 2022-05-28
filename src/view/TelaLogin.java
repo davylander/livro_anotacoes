@@ -27,6 +27,8 @@ public class TelaLogin {
 	ImageIcon iconeMarcador = new ImageIcon("material/imagens/marcador.png");
 	ImageIcon iconeCadastrar = new ImageIcon("material/imagens/cadastrar.png");
 	
+	Diario diario = new Diario();
+	
 	private JFrame frame;
 	private JTextField txtLogin;
 	private JTextField txtSenha;
@@ -133,14 +135,15 @@ public class TelaLogin {
 		entrarBotao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GerenciarUsuarios gerenciarUsuarios = new GerenciarUsuarios();
-				Diario diario = new Diario();
 				String login = txtLogin.getText();
 				String senha = new String(((JPasswordField) txtSenha).getPassword());
-				TelaPrincipal principal = new TelaPrincipal();
+				TelaPrincipal principal;
 				if(gerenciarUsuarios.acessar(login, senha) == true) {
 					int token = gerenciarUsuarios.tokenAcesso(login, senha);
 					diario.tokenAcesso(token);
-					JOptionPane.showMessageDialog(null, "Bem vindo ao diário!");
+					principal = new TelaPrincipal(token);
+					// vou ter que fazer a porra de um token no banco pra enviar esse id e pegar de lá na tela principal :)
+					JOptionPane.showMessageDialog(null, "Bem vindo ao diário! id principal: " + principal.token + " id retornaId: " + retornaId());
 					principal.show();
 					frame.dispose();
 				}else {
@@ -209,6 +212,10 @@ public class TelaLogin {
 	@SuppressWarnings("deprecation")
 	public void show() {
 		frame.show(); // abre a pagina
+	}
+	
+	public int retornaId() {
+		return diario.retornaToken();
 	}
 	
 }

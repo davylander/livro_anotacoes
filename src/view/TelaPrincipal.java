@@ -1,5 +1,8 @@
 package view;
 
+
+import controller.Diario;
+
 import java.awt.*;
 //import java.awt.event.*;
 
@@ -8,16 +11,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TelaPrincipal {
-
+	
 	ImageIcon iconeJanela = new ImageIcon("material/imagens/diario.png");
 	ImageIcon iconeMarcador = new ImageIcon("material/imagens/marcador.png");
 	ImageIcon iconePagina = new ImageIcon("material/imagens/linhas.jpg");
 	ImageIcon iconeSalvar = new ImageIcon("material/imagens/salvar.png");
 	
+	Diario diario = new Diario();
+	
 	private JFrame frame;
 	private JTable table;
 	private JTextField txtTitulo;
 	private JTextArea txtTexto;
+	
+	public int token;
 
 	/**
 	 * Launch the application.
@@ -40,13 +47,19 @@ public class TelaPrincipal {
 	 */
 	public TelaPrincipal() {
 		initialize();
+		token = diario.retornaToken();
+	}
+	
+	public TelaPrincipal(int id) {
+		initialize();
+		token = id;
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
+		
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 800, 400);
@@ -63,9 +76,9 @@ public class TelaPrincipal {
 		frame.getContentPane().add(panelVisualizar);
 		panelVisualizar.setLayout(null);
 		
-		JLabel labelPaginaEsquerda = new JLabel("aaaaaaaaaaaaaaaaaa");
+		JLabel labelPaginaEsquerda = new JLabel("aaaaaaaaaaaaaaaaaa " + token);
 		labelPaginaEsquerda.setBounds(10, 11, 357, 36);
-		labelPaginaEsquerda.setIcon(iconePagina);
+		//labelPaginaEsquerda.setIcon(iconePagina);
 		panelVisualizar.add(labelPaginaEsquerda);
 		
 		table = new JTable();
@@ -153,4 +166,6 @@ public class TelaPrincipal {
 	public void show() {
 		frame.show(); // abre a pagina
 	}
+	
+	
 }
