@@ -1,16 +1,25 @@
 package controller;
 
+import model.IdDeAcesso;
 
 public class Diario{
-		
-	private int token;
 	
-	public void tokenAcesso(int id) {
-		this.token = id;
+	IdDeAcesso id = new IdDeAcesso();
+	
+	public void enviarToken(int token) {
+		id.setTokenId(token);
 	}
 	
 	public int retornaToken() {
-		return token;
+		return id.getTokenId();
+	}
+	
+	public boolean checarSalvamentoAnotacao(int idToken) {
+		boolean resposta = false;
+		if(idToken == id.getTokenId()) {
+			resposta = true;
+		}
+		return resposta;
 	}
 	
 }

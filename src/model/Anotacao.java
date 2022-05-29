@@ -10,11 +10,12 @@ public class Anotacao {
 	private String texto;
 	private int usuarioId;
 	
-	Anotacao(){
+	public Anotacao(){
 		
 	}
 	
-	Anotacao(String titulo, String texto, int usuarioId){
+	public Anotacao(int id, LocalDate data,String titulo, String texto, int usuarioId){
+		this.setId(id);
 		this.setData(LocalDate.now());
 		this.setTitulo(titulo);
 		this.setTexto(texto);

@@ -140,14 +140,16 @@ public class TelaLogin {
 				TelaPrincipal principal;
 				if(gerenciarUsuarios.acessar(login, senha) == true) {
 					int token = gerenciarUsuarios.tokenAcesso(login, senha);
-					diario.tokenAcesso(token);
-					principal = new TelaPrincipal(token);
+					diario.enviarToken(token);
+					principal = new TelaPrincipal();
 					// vou ter que fazer a porra de um token no banco pra enviar esse id e pegar de lá na tela principal :)
-					JOptionPane.showMessageDialog(null, "Bem vindo ao diário! id principal: " + principal.token + " id retornaId: " + retornaId());
+					JOptionPane.showMessageDialog(null, "Bem vindo ao diário!");
 					principal.show();
 					frame.dispose();
 				}else {
 					JOptionPane.showMessageDialog(null, "Dados inválidos!");
+					txtLogin.setText("");
+					txtSenha.setText("");
 				}
 				
 			}
@@ -212,10 +214,6 @@ public class TelaLogin {
 	@SuppressWarnings("deprecation")
 	public void show() {
 		frame.show(); // abre a pagina
-	}
-	
-	public int retornaId() {
-		return diario.retornaToken();
 	}
 	
 }

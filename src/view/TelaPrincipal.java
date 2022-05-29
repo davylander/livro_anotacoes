@@ -2,6 +2,7 @@ package view;
 
 
 import controller.Diario;
+import controller.GerenciarAnotacoes;
 
 import java.awt.*;
 //import java.awt.event.*;
@@ -16,8 +17,11 @@ public class TelaPrincipal {
 	ImageIcon iconeMarcador = new ImageIcon("material/imagens/marcador.png");
 	ImageIcon iconePagina = new ImageIcon("material/imagens/linhas.jpg");
 	ImageIcon iconeSalvar = new ImageIcon("material/imagens/salvar.png");
+	ImageIcon iconeEditar = new ImageIcon("material/imagens/editar.png");
+	ImageIcon iconeDeletar = new ImageIcon("material/imagens/deletar.png");
 	
 	Diario diario = new Diario();
+	GerenciarAnotacoes anotacoes = new GerenciarAnotacoes();
 	
 	private JFrame frame;
 	private JTable table;
@@ -40,6 +44,9 @@ public class TelaPrincipal {
 				}
 			}
 		});
+		
+		/*TelaPrincipal window = new TelaPrincipal();
+		window.frame.setVisible(true);*/
 	}
 
 	/**
@@ -47,18 +54,15 @@ public class TelaPrincipal {
 	 */
 	public TelaPrincipal() {
 		initialize();
-		token = diario.retornaToken();
-	}
-	
-	public TelaPrincipal(int id) {
-		initialize();
-		token = id;
+		//token = diario.getTokenId();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		token = diario.retornaToken();
 		
 		frame = new JFrame();
 		frame.setResizable(false);
@@ -73,19 +77,20 @@ public class TelaPrincipal {
 		//--------------------Lado Esquerdo---------------------------
 		JPanel panelVisualizar = new JPanel();
 		panelVisualizar.setBounds(10, 11, 377, 339);
+		panelVisualizar.setBackground(Color.decode("#F8EEC8"));
 		frame.getContentPane().add(panelVisualizar);
 		panelVisualizar.setLayout(null);
 		
-		JLabel labelPaginaEsquerda = new JLabel("aaaaaaaaaaaaaaaaaa " + token);
+		JLabel labelPaginaEsquerda = new JLabel("");
 		labelPaginaEsquerda.setBounds(10, 11, 357, 36);
-		//labelPaginaEsquerda.setIcon(iconePagina);
+		labelPaginaEsquerda.setIcon(iconePagina);
 		panelVisualizar.add(labelPaginaEsquerda);
 		
 		table = new JTable();
 		table.setBounds(10, 328, 357, -178);
 		panelVisualizar.add(table);
 		
-		JLabel labelPaginaEsquerda_1 = new JLabel("aaaaaaaaaaaaaaaaa");
+		JLabel labelPaginaEsquerda_1 = new JLabel("");
 		labelPaginaEsquerda_1.setBounds(10, 99, 357, 36);
 		labelPaginaEsquerda_1.setIcon(iconePagina);
 		panelVisualizar.add(labelPaginaEsquerda_1);
@@ -96,15 +101,27 @@ public class TelaPrincipal {
 				//
 			}
 		});
+		editarBotao.setBackground(Color.decode("#FEF9E4"));
 		editarBotao.setBounds(65, 47, 57, 51);
+		editarBotao.setIcon(iconeEditar);
 		panelVisualizar.add(editarBotao);
 		
 		JButton deletarBotao = new JButton("deleta");
 		deletarBotao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//
+				for(int i = 0; i < anotacoes.listarAnotacoes(token).size(); i ++) {
+					System.out.println(
+						"ID: " + anotacoes.listarAnotacoes(token).get(i).getId() +"\n"+
+						"Data: " + anotacoes.listarAnotacoes(token).get(i).getData() +"\n"+
+						"Titulo: " +	anotacoes.listarAnotacoes(token).get(i).getTitulo() +"\n"+
+						"Texto: " +	anotacoes.listarAnotacoes(token).get(i).getTexto() +"\n"+
+						"Usuario ID: " +	anotacoes.listarAnotacoes(token).get(i).getUsuarioId()
+										);
+				}
 			}
 		});
+		deletarBotao.setBackground(Color.decode("#FEF9E4"));
+		deletarBotao.setIcon(iconeDeletar);
 		deletarBotao.setBounds(254, 47, 57, 51);
 		panelVisualizar.add(deletarBotao);
 		
@@ -112,6 +129,7 @@ public class TelaPrincipal {
 		//--------------------Lado Direito---------------------------
 		JPanel panelInserir= new JPanel();
 		panelInserir.setBounds(397, 11, 377, 339);
+		panelInserir.setBackground(Color.decode("#F8EEC8"));
 		frame.getContentPane().add(panelInserir);
 		panelInserir.setLayout(null);
 		
@@ -150,11 +168,22 @@ public class TelaPrincipal {
 		JButton enviarBotao = new JButton("");
 		enviarBotao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//
+				String titulo = txtTitulo.getText();
+				String texto = txtTexto.getText();
+				if(diario.checarSalvamentoAnotacao(token) == true && token > 0) {
+					JOptionPane.showMessageDialog(null, "Anotação salva!");
+					anotacoes.salvarAnotacao(titulo, texto, token);
+					txtTitulo.setText("");
+					txtTexto.setText("");
+				}else {
+					JOptionPane.showMessageDialog(null, "Falha ao salvar anotação!");
+					txtTitulo.setText("");
+					txtTexto.setText("");
+				}
 			}
 		});
 		enviarBotao.setBounds(10, 277, 57, 51);
-		enviarBotao.setBackground(Color.decode("#F0F0F0"));
+		enviarBotao.setBackground(Color.decode("#FEF9E4"));
 		enviarBotao.setIcon(iconeSalvar);
 		panelInserir.add(enviarBotao);
 		

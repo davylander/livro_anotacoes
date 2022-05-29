@@ -2,6 +2,8 @@ package model;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 
 public class AnotacaoDAO {
 
@@ -51,6 +53,33 @@ public class AnotacaoDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList arraySelecionarSQL(int tokenId) {
+		sql = "SELECT * FROM anotacao " +
+			  "WHERE usuario_id = " + tokenId;
+				
+				;
+		consulta = conexao.executarBucasSQL(sql);
+		ArrayList<String> select = new ArrayList<>();
+		
+		try {
+			while(consulta.next()) {
+				int id = consulta.getInt("id");
+				String idString = Integer.toString(id);
+				Date data = consulta.getDate("data");
+				String titulo = consulta.getString("titulo");
+				String texto = consulta.getString("texto");
+				int usuarioId = consulta.getInt("usuario_id");
+				String usuarioIdString = Integer.toString(usuarioId);
+				
+				select.add(idString+";"+data+";"+titulo+";"+texto+";"+usuarioIdString);
+			}
+			return(select);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }
